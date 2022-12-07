@@ -38,11 +38,15 @@ def draw_matches_cv(data, matches, plot_points=True):
         if img.ndim == 2:
             img = img[:, :, np.newaxis]
         return img
-    img1 = to3dim(data['image1'])
-    img2 = to3dim(data['image2'])
-    img1 = np.concatenate([img1, img1, img1], axis=2)
-    img2 = np.concatenate([img2, img2, img2], axis=2)
-    return cv2.drawMatches(img1, keypoints1, img2, keypoints2, matches,
+    # img1 = to3dim(data['image1'])
+    # img2 = to3dim(data['image2'])
+    # img1 = np.concatenate([img1, img1, img1], axis=2)
+    # img2 = np.concatenate([img2, img2, img2], axis=2)
+    img1 = data['image1']
+    img2 = data['image2']
+    img1 = cv2.cvtColor(img1, cv2.COLOR_GRAY2BGR)
+    img2 = cv2.cvtColor(img2, cv2.COLOR_GRAY2BGR)
+    return cv2.drawMatches(np.uint8(img1), keypoints1, np.uint8(img2), keypoints2, matches,
                            None, matchColor=(0,255,0), singlePointColor=(0, 0, 255))
 
 def isfloat(value):
